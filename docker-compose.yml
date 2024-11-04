@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    restart: always
+    depends_on:
+      - db
+    deploy:
+      replicas: 2
+    expose:
+      - 5000
+    networks: 
+      - application-network
+      - db-network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - application-network
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15.4-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpass
+      POSTGRES_DB: postgres
+    container_name: db
+    restart: always
+    expose: 
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db-network
+
+volumes:
+  postgres_data:
+
+networks:
+  application-network:
+  db-network: 
