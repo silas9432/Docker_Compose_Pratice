@@ -51,21 +51,32 @@ Essa arquitetura modular favorece a escalabilidade, uma vez que o backend pode s
 ## Estrutura do Projeto
 
 ```bash
-guess_game/
-├── README.md              # Documentação do projeto
-├── docker-compose.yml     # Configuração do Docker Compose
+Trabalho_pratico_Unidade1_Docker/
 ├── backend/               # Código e lógica do servidor backend
+├──── guess
+│       ├── __init__py
+│       ├── discover.py
+│       ├── game_routes.py
+├──── ├── repository/        # Módulos de integração com diferentes bancos de dados├── repository
+│       ├── __init__py
+│       ├── dynamodb.py
+│       ├── entities.py
+│       ├── hash.py
+│       ├── postgres.py
+│       ├── sqlite.py
+├──── ├── tests/
+│       ├── tests/test_app.py      # Testes automatizados do backend
 │   ├── Dockerfile         # Dockerfile para o backend
+│   ├── requirements.txt   # Dependências do projeto backend
 │   ├── run.py             # Script de inicialização da aplicação backend
 │   ├── start-backend.sh   # Script para iniciar o backend
-│   ├── requirements.txt   # Dependências do projeto backend
-│   ├── repository/        # Módulos de integração com diferentes bancos de dados
-│   └── tests/             # Testes automatizados do backend
 └── frontend/              # Código do frontend React
     ├── Dockerfile         # Dockerfile para o frontend
     ├── nginx.conf         # Configuração do servidor Nginx
     ├── public/            # Arquivos públicos e estáticos
     └── src/               # Código-fonte do frontend
+├── README.md              # Documentação do projeto
+├── docker-compose.yml     # Configuração do Docker Compose
 ```
 
 ---
@@ -128,7 +139,7 @@ git clone https://github.com/kimidomaru/docker_practice.git
 Após o clone, entre no diretório recém-criado. A partir desse diretório, você poderá executar todos os comandos relacionados ao projeto.
 
 ```shell
-cd docker_practice
+cd Trabalho_pratico_Unidade1_Docker
 ```
 
 ### 3. Construir e iniciar os containers
