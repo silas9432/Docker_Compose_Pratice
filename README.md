@@ -116,8 +116,7 @@ Para escalar o número de réplicas, você pode modificar a configuração de de
 
 ```yaml
 backend:
-  build:
-    context: ./backend
+  image: silas943245/backend:v1
   restart: always
   depends_on:
     - db
@@ -129,7 +128,7 @@ backend:
     - application-network
     - db-network
 ```
-Com isso, você pode ajustar dinamicamente o número de réplicas, dependendo da carga do sistema, permitindo que o backend seja escalado para atender a um maior número de requisições simultâneas.
+Com isso, o backend já está preparado para escalar dinamicamente conforme a demanda, bastando ajustar o número de réplicas. Além disso, usando imagens publicadas no Docker Hub, você garante que a escalabilidade e atualizações possam ser realizadas sem a necessidade de realizar builds no ambiente de produção.
 
 ## Requisitos
 
