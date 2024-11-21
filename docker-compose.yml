@@ -19,7 +19,7 @@ services:
     container_name: frontend
     restart: always
     ports:
-      - "8080:80"
+      - "80:80"
     networks:
       - application-network
     depends_on:
