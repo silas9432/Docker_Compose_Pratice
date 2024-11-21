@@ -90,30 +90,46 @@ Trabalho_pratico_Unidade1_Docker/
 
 ## Atualizar componentes
 
-A atualização de qualquer componente é direta e intuitiva. Basta modificar o Dockerfile ou os arquivos relacionados ao serviço específico e, em seguida, reconstruir o ambiente com o seguinte comando:
+Em ambientes de produção, a atualização de componentes não deve ser feita diretamente com --build, uma vez que o processo de construção da imagem deve ser realizado em ambientes de desenvolvimento ou em pipelines de CI/CD.
 
+### Fluxo de atualização em produção:
+- **Criação da nova versão da imagem:** No ambiente de desenvolvimento, você faz as alterações necessárias e executa o build das imagens com.
 ```bash
-docker-compose up --build
+docker build -t silas943245/frontend:v2 ./frontend
+docker build -t silas943245/backend:v2 ./backend
 ```
-
-Isso garantirá que todas as alterações sejam aplicadas e que as novas versões dos serviços sejam executadas sem interrupções significativas.
+- **Publicação das imagens no Docker Hub:** Após o build, você publica as novas imagens para que elas possam ser puxadas no ambiente de produção.
+```bash
+docker push silas943245/frontend:v2
+docker push silas943245/backend:v2
+```
+- **Atualização no ambiente de produção:**  No ambiente de produção, basta atualizar a tag das imagens no docker-compose.yml e rodar o comando para aplicar as alterações sem precisar reconstruir as imagens.
+```bash
+docker-compose pull
+docker-compose up -d
+```
+O comando docker-compose pull irá garantir que as últimas versões das imagens sejam baixadas, enquanto docker-compose up -d atualizará os containers em execução para refletir as novas versões.
 
 ## Escalabilidade 
-O sistema permite escalabilidade horizontal do backend para lidar com um maior número de requisições. Esse ajuste é feito diretamente no arquivo docker-compose.yml, definindo o número de réplicas necessárias. Para isso, você pode incluir a configuração abaixo:
+O sistema já está configurado para escalabilidade horizontal do backend, permitindo que o número de réplicas seja ajustado facilmente. Isso é feito diretamente no arquivo docker-compose.yml dentro da configuração do serviço backend.
+Para escalar o número de réplicas, você pode modificar a configuração de deploy.replicas como mostrado abaixo:
 
 ```yaml
 backend:
   build:
-    context: .
+    context: ./backend
   restart: always
   depends_on:
     - db
   deploy:
-    replicas: n
+    replicas: 2  # Aumente o número de réplicas conforme necessário
+  expose:
+    - 5000
+  networks: 
+    - application-network
+    - db-network
 ```
-No campo replicas, substitua n pelo número desejado de instâncias.
-
-Esse recurso permite distribuir a carga entre várias réplicas, otimizando a performance e aumentando a disponibilidade do serviço. Ferramentas como Nginx garantirão que o tráfego seja balanceado entre as instâncias de backend disponíveis.
+Com isso, você pode ajustar dinamicamente o número de réplicas, dependendo da carga do sistema, permitindo que o backend seja escalado para atender a um maior número de requisições simultâneas.
 
 ## Requisitos
 
