@@ -1,7 +1,6 @@
 services:
   backend:
-    build:
-      context: ./backend
+    image: silas943245/backend
     restart: always
     depends_on:
       - db
@@ -14,12 +13,11 @@ services:
       - db-network
 
   frontend:
-    build:
-      context: ./frontend
+    image: silas943245/frontend
     container_name: frontend
     restart: always
     ports:
-      - "8080:80"
+      - "80:80"
     networks:
       - application-network
     depends_on:
