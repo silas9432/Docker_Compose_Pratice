@@ -1,6 +1,6 @@
 services:
   backend:
-    image: silas943245/backend
+    image: silas943245/backend:v1
     restart: always
     depends_on:
       - db
