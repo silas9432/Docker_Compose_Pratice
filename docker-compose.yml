@@ -1,10 +1,6 @@
 services:
   backend:
-<<<<<<< HEAD
     image: silas943245/backend
-=======
-    image: silas943245/backend:v1
->>>>>>> bbf52a638a1520611f55b441cafb8777b0bb00cb
     restart: always
     depends_on:
       - db
@@ -17,11 +13,7 @@ services:
       - db-network
 
   frontend:
-<<<<<<< HEAD
     image: silas943245/frontend:v1
-=======
-    image: silas943245/frontend:v1
->>>>>>> bbf52a638a1520611f55b441cafb8777b0bb00cb
     container_name: frontend
     restart: always
     ports:
