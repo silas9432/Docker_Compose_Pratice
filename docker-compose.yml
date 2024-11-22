@@ -11,14 +11,6 @@ services:
     networks: 
       - application-network
       - db-network
-    environment:
-      FLASK_APP: "run.py"
-      FLASK_DB_TYPE: "postgres"
-      FLASK_DB_USER: "postgres"
-      FLASK_DB_NAME: "postgres"
-      FLASK_DB_PASSWORD: "secretpass"
-      FLASK_DB_HOST: "db"
-      FLASK_DB_PORT: "5432"
 
   frontend:
     image: silas943245/frontend:v1
