@@ -2,7 +2,7 @@
 
 # Define environment variable
 <<<<<<< HEAD
-export FLASK_APP="run.py"
+export FLASK_APP=${FLASK_APP:-"run.py"}
 =======
 export FLASK_APP=${FLASK_APP:-"run.py"}
 >>>>>>> bbf52a638a1520611f55b441cafb8777b0bb00cb
