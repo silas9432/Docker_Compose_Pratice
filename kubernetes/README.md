@@ -96,7 +96,7 @@ Você pode acessar o frontend utilizando o port-forward:
 
 # Limpeza do Ambiente
 
-Para remover todos os recursos criados, execute:
+Para remover todos os recursos criados, execute em cada um dos diretorios:
 
   ```bash
   kubectl delete -f .
